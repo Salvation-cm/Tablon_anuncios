@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <!-- Cambia el título dependiendo de si estamos creando o editando -->
+        <h2>{% if usuario %}Editar Usuario{% else %}Nuevo Usuario{% endif %}</h2>
+        
+        <form method="POST" class="card p-4 shadow-sm">
+            <div class="mb-3">
+                <label class="form-label">Nombre:</label>
+                <!-- Si hay un usuario, precarga sus datos -->
+                <input type="text" name="nombre" class="form-control" value="{{ usuario.nombre if usuario else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" name="email" class="form-control" value="{{ usuario.email if usuario else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contraseña:</label>
+                <input type="password" name="password" class="form-control" {% if not usuario %}required{% endif %}>
+                {% if usuario %}
+                <small class="text-muted">Deja esto en blanco si no quieres cambiar la contraseña.</small>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ url_for('usuarios.index') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

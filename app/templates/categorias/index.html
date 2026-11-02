@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Categorías</h2>
+    <a href="{{ url_for('categorias.crear') }}" class="btn btn-success">+ Nueva Categoría</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in categorias %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.nombre }}</td>
+            <td>
+                <a href="{{ url_for('categorias.editar', id=c.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{{ url_for('categorias.eliminar', id=c.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que quieres eliminar esta categoría?')">Eliminar</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="3" class="text-center">No hay categorías registradas.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
